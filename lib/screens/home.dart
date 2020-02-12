@@ -1,7 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_food_app/screens/addRecipeze.dart';
+import 'package:flutter_food_app/screens/changePassword.dart';
+import 'package:flutter_food_app/screens/login.dart';
+import 'package:flutter_food_app/screens/myRecipeze.dart';
+import 'package:flutter_food_app/screens/signup.dart';
+import 'package:flutter_food_app/widgets/homeRecipesList.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -13,104 +17,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: Stack(children: <Widget>[
-          BottomNavigationBar(
-            items: [
-              BottomNavigationBarItem(
-                icon: new Icon(
-                  Icons.home,
-                  color: Colors.grey,
-                ),
-                title: new Text(
-                  'Home',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'NotoSansSC',
-                    fontSize: 13.0,
-                  ),
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(
-                  Icons.kitchen,
-                  color: Colors.grey,
-                ),
-                title: new Text('SoufChef',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'NotoSansSC',
-                      fontSize: 13.0,
-                    )),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(
-                  Icons.home,
-                  color: Colors.grey,
-                ),
-                title: new Text(
-                  'Home',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'NotoSansSC',
-                    fontSize: 13.0,
-                  ),
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: new Icon(
-                  Icons.favorite,
-                  color: Colors.grey,
-                ),
-                title: new Text('Favourites',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'NotoSansSC',
-                      fontSize: 13.0,
-                    )),
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person,
-                    color: Colors.grey,
-                  ),
-                  title: Text('Profile',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'NotoSansSC',
-                        fontSize: 13.0,
-                      )))
-            ],
-          ),
-          Positioned(
-            left: MediaQuery.of(context).size.width * 0.5,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.1,
-              height: MediaQuery.of(context).size.width * 0.12,
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5.0),
-                      topRight: Radius.circular(5.0))),
-              child: Center(
-                child: Text(
-                  'My\nRecip',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'NotoSansSC',
-                    fontSize: 13.0,
-                  ),
-                ),
-              ),
-            ),
-          )
-        ]),
+        key: _scaffoldKey,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
-          leading: Icon(Icons.menu),
+          leading: IconButton(
+            icon: Icon(
+              Icons.menu,
+            ),
+            onPressed: () {
+              _scaffoldKey.currentState.openDrawer();
+            },
+          ),
           title: Align(
             alignment: Alignment.topRight,
             child: Text(
@@ -120,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
+        drawer: buildDrawer(),
         body: ListView(children: <Widget>[
           Container(
               child: Stack(children: <Widget>[
@@ -127,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    height: 280,
                     width: MediaQuery.of(context).size.width,
                     color: Colors.orange[300],
                   ),
@@ -149,592 +72,251 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     ],
                   ),
-                  Stack(children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.35,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
-                    ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height * 0.08,
-                      child: Row(
+                  Container(
+                    height: 230.0,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40.0),
+                      child: Column(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Container(
-                              color: Colors.black,
-                              width: MediaQuery.of(context).size.width * 0.01,
-                              height:
-                                  MediaQuery.of(context).size.height * 0.045,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'CATALOG NOW',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansSC',
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.bold),
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Container(
+                                  color: Colors.black,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.01,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.045,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'Find out dining emerging trends',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontFamily: 'NotoSansSC',
-                                      fontSize: 10.0,
-                                      letterSpacing: 0.3),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                        left: MediaQuery.of(context).size.width * 0.03,
-                        top: MediaQuery.of(context).size.height * 0.16,
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.36,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: BouncingScrollPhysics(),
-                              itemCount: 6,
-                              itemBuilder: (context, index) {
-                                //  final Product products = product[index];
-                                return Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Image.asset(
-                                        'assets/chicken.png',
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.1,
-                                        height:
-                                            MediaQuery.of(context).size.width *
-                                                0.1,
-                                      ),
-                                      Text(
-                                        'chicken',
-                                        style: TextStyle(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      'CATALOG NOW',
+                                      style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 10.0,
-                                          fontWeight: FontWeight.bold,
                                           fontFamily: 'NotoSansSC',
-                                        ),
-                                      )
-                                    ],
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                );
-                              }),
-                        ))
-                  ]),
-                  Stack(children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.54,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.grey[200],
-                    ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height * 0.05,
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Container(
-                              color: Colors.black,
-                              width: MediaQuery.of(context).size.width * 0.01,
-                              height:
-                                  MediaQuery.of(context).size.height * 0.045,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'FEELS LIKE ALL',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansSC',
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'Taste the local dellicacies Caribbean',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontFamily: 'NotoSansSC',
-                                      fontSize: 10.0,
-                                      letterSpacing: 0.3),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      'Find out dining emerging trends',
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'NotoSansSC',
+                                          fontSize: 10.0,
+                                          letterSpacing: 0.3),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
+                          ),
+                          SizedBox(
+                            height: 150,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                itemCount: 6,
+                                itemBuilder: (context, index) {
+                                  //  final Product products = product[index];
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                      top: 20.0,
+                                      bottom: 20.0,
+                                      left: 20.0,
+                                    ),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Image.asset(
+                                          'assets/chicken.png',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                        ),
+                                        Text(
+                                          'chicken',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'NotoSansSC',
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }),
                           ),
                         ],
                       ),
                     ),
-                    Positioned(
-                        left: MediaQuery.of(context).size.width * 0.03,
-                        top: MediaQuery.of(context).size.height * 0.13,
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.36,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              // physics: BouncingScrollPhysics(),
-                              itemCount: 6,
-                              itemBuilder: (context, index) {
-                                //  final Product products = product[index];
-                                return Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.34,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.46,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black38,
-                                            offset: Offset(0, 8),
-                                            blurRadius: 8,
-                                          ),
-                                        ],
-                                        color: Colors.white),
-                                    child: Stack(children: <Widget>[
-                                      Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.22,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: AssetImage(
-                                                    'assets/background.jpg'))),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Align(
-                                            alignment: Alignment.topRight,
-                                            child: Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                      Positioned(
-                                        // left: MediaQuery.of(context).size.width * 0.03,
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.22,
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.13,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.40,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                              color: Colors.white),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5.0),
-                                                  child: Text(
-                                                    'The moon and sixpence',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        //fontFamily: 'NotoSansSC',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12.0),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5.0, top: 3.0),
-                                                  child: FlutterRatingBar(
-                                                    itemSize: 13.0,
-                                                    initialRating: 5,
-                                                    fillColor:
-                                                        Colors.orange[200],
-                                                    borderColor: Colors.amber
-                                                        .withAlpha(50),
-                                                    allowHalfRating: true,
-                                                    onRatingUpdate: (rating) {},
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5.0, top: 3.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        Icons.alarm,
-                                                        size: 18.0,
-                                                        color: Colors.black,
-                                                      ),
-                                                      Column(
-                                                        children: <Widget>[
-                                                          Text(
-                                                            'Pref',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0),
-                                                          ),
-                                                          Text(
-                                                            '15 m',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: <Widget>[
-                                                          Text(
-                                                            'Cook',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0),
-                                                          ),
-                                                          Text(
-                                                            '40 m',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: <Widget>[
-                                                          Text(
-                                                            'Ready in',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0),
-                                                          ),
-                                                          Text(
-                                                            '55 m',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        width: 20.0,
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                );
-                              }),
-                        ))
-                  ]),
-                  Stack(children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.55,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white,
-                    ),
-                    Positioned(
-                      top: MediaQuery.of(context).size.height * 0.05,
-                      child: Row(
+                  ),
+                  Container(
+                    height: 350,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.grey[200],
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Column(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Container(
-                              color: Colors.black,
-                              width: MediaQuery.of(context).size.width * 0.01,
-                              height:
-                                  MediaQuery.of(context).size.height * 0.045,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'COOK SMARTER, NOT HARDER',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansSC',
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.bold),
+                                padding: const EdgeInsets.only(
+                                  left: 20.0,
+                                ),
+                                child: Container(
+                                  color: Colors.black,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.01,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.045,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'Top most responsable recipes',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'NotoSansSC',
-                                      fontSize: 10.0,
-                                      letterSpacing: 0.3),
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      'FEELS LIKE ALL',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'NotoSansSC',
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      'Taste the local dellicacies Caribbean',
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'NotoSansSC',
+                                          fontSize: 10.0,
+                                          letterSpacing: 0.3),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          SizedBox(
+                            height: 225,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                itemCount: 6,
+                                itemBuilder: (context, index) {
+                                  //  final Product products = product[index];
+                                  return Container(
+                                      padding: EdgeInsets.only(
+                                        top: 20.0,
+                                        bottom: 20.0,
+                                        left: 20.0,
+                                      ),
+                                      child: ResturantsList());
+                                }),
                           ),
                         ],
                       ),
                     ),
-                    Positioned(
-                        left: MediaQuery.of(context).size.width * 0.03,
-                        top: MediaQuery.of(context).size.height * 0.13,
-                        child: Container(
-                          color: Colors.black,
-                          height: MediaQuery.of(context).size.height * 0.36,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              // physics: BouncingScrollPhysics(),
-                              itemCount: 6,
-                              itemBuilder: (context, index) {
-                                //  final Product products = product[index];
-                                return Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.34,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.46,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black38,
-                                            offset: Offset(0, 8),
-                                            blurRadius: 8,
-                                          ),
-                                        ],
-                                        color: Colors.white),
-                                    child: Stack(children: <Widget>[
-                                      Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.22,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: AssetImage(
-                                                    'assets/background.jpg'))),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Align(
-                                            alignment: Alignment.topRight,
-                                            child: Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.white,
-                                            )),
-                                      ),
-                                      Positioned(
-                                        // left: MediaQuery.of(context).size.width * 0.03,
-                                        top:
-                                            MediaQuery.of(context).size.height *
-                                                0.22,
-                                        child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.13,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.40,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                              color: Colors.white),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5.0),
-                                                  child: Text(
-                                                    'The moon and sixpence',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        //fontFamily: 'NotoSansSC',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12.0),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5.0, top: 3.0),
-                                                  child: FlutterRatingBar(
-                                                    itemSize: 13.0,
-                                                    initialRating: 5,
-                                                    fillColor:
-                                                        Colors.orange[200],
-                                                    borderColor: Colors.amber
-                                                        .withAlpha(50),
-                                                    allowHalfRating: true,
-                                                    onRatingUpdate: (rating) {},
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5.0, top: 3.0),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      Icon(
-                                                        Icons.alarm,
-                                                        size: 18.0,
-                                                        color: Colors.black,
-                                                      ),
-                                                      Column(
-                                                        children: <Widget>[
-                                                          Text(
-                                                            'Pref',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0),
-                                                          ),
-                                                          Text(
-                                                            '15 m',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: <Widget>[
-                                                          Text(
-                                                            'Cook',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0),
-                                                          ),
-                                                          Text(
-                                                            '40 m',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: <Widget>[
-                                                          Text(
-                                                            'Ready in',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0),
-                                                          ),
-                                                          Text(
-                                                            '55 m',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10.0,
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
+                  ),
+                  Container(
+                    height: 350,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Container(
+                                  color: Colors.black,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.01,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.045,
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      'COOK SMARTER, NOT HARDER',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: 'NotoSansSC',
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
-                                );
-                              }),
-                        ))
-                  ]),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Text(
+                                      'Top most reasonsable recipes',
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'NotoSansSC',
+                                          fontSize: 10.0,
+                                          letterSpacing: 0.3),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          SizedBox(
+                            height: 225,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: BouncingScrollPhysics(),
+                                itemCount: 6,
+                                itemBuilder: (context, index) {
+                                  //  final Product products = product[index];
+                                  return Container(
+                                      padding: EdgeInsets.only(
+                                        top: 20.0,
+                                        bottom: 20.0,
+                                        left: 20.0,
+                                      ),
+                                      child: ResturantsList());
+                                }),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -772,7 +354,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 SizedBox(
-                  height: 15.0,
+                  height: 10.0,
                 ),
                 Row(
                   children: <Widget>[
@@ -813,13 +395,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-              ],
-            ),
-            Positioned(
-                left: MediaQuery.of(context).size.width * 0.03,
-                top: MediaQuery.of(context).size.height * 0.25,
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.36,
+                SizedBox(
+                  height: 5.0,
+                ),
+                SizedBox(
+                  height: 225,
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -827,166 +407,188 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemCount: 6,
                       itemBuilder: (context, index) {
                         //  final Product products = product[index];
-                        return Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.34,
-                            width: MediaQuery.of(context).size.width * 0.46,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black38,
-                                    offset: Offset(0, 8),
-                                    blurRadius: 8,
-                                  ),
-                                ],
-                                color: Colors.white),
-                            child: Stack(children: <Widget>[
-                              Container(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.22,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                            'assets/background.jpg'))),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                    )),
-                              ),
-                              Positioned(
-                                // left: MediaQuery.of(context).size.width * 0.03,
-                                top: MediaQuery.of(context).size.height * 0.22,
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.13,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.40,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                      color: Colors.white),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5.0),
-                                          child: Text(
-                                            'The moon and sixpence',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                //fontFamily: 'NotoSansSC',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12.0),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 5.0, top: 3.0),
-                                          child: FlutterRatingBar(
-                                            itemSize: 13.0,
-                                            initialRating: 5,
-                                            fillColor: Colors.orange[200],
-                                            borderColor:
-                                                Colors.amber.withAlpha(50),
-                                            allowHalfRating: true,
-                                            onRatingUpdate: (rating) {},
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 5.0, top: 3.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.alarm,
-                                                size: 18.0,
-                                                color: Colors.black,
-                                              ),
-                                              Column(
-                                                children: <Widget>[
-                                                  Text(
-                                                    'Pref',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0),
-                                                  ),
-                                                  Text(
-                                                    '15 m',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                children: <Widget>[
-                                                  Text(
-                                                    'Cook',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0),
-                                                  ),
-                                                  Text(
-                                                    '40 m',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              Column(
-                                                children: <Widget>[
-                                                  Text(
-                                                    'Ready in',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0),
-                                                  ),
-                                                  Text(
-                                                    '55 m',
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 10.0,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                width: 20.0,
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ]),
-                          ),
-                        );
+                        return Container(
+                            padding: EdgeInsets.only(
+                              top: 20.0,
+                              bottom: 20.0,
+                              left: 20.0,
+                            ),
+                            child: ResturantsList());
                       }),
-                ))
+                )
+              ],
+            ),
           ]))
         ]));
+  }
+
+  Drawer buildDrawer() {
+    return Drawer(
+      child: ListView(
+        children: <Widget>[
+          DrawerHeader(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/user.png'),
+                    radius: 38.0,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    'Alaa Sobhy',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.orange[300],
+            ),
+          ),
+          ListTile(
+            title: Text(
+              'Home',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.home,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => MyHomePage()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Recipeze',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.local_dining,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => MyRecipezePage()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Baker',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.local_dining,
+              color: Colors.black,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              'Create Recipeze',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.monetization_on,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => AddRecipezePage()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Profile',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.tv,
+              color: Colors.black,
+            ),
+          ),
+          ListTile(
+            title: Text(
+              'Register',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.directions_car,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => MySignUpPage()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Sign In',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.account_box,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => MyLogInPage()));
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Change Password',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: Icon(
+              Icons.visibility_off,
+              color: Colors.black,
+            ),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => MyChangePasswordPage()));
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

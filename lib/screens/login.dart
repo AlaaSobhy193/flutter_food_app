@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_food_app/screens/forgetPassword.dart';
-import 'package:flutter_food_app/screens/home.dart';
+import 'package:flutter_food_app/screens/navigationBottom.dart';
 import 'package:flutter_food_app/screens/signup.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -157,7 +157,8 @@ class _MyLoginPageState extends State<MyLogInPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyHomePage()));
+                                        builder: (context) =>
+                                            BottomContainer()));
                               },
                               child: Container(
                                 height: 50.0,

@@ -26,6 +26,9 @@ dependencies:
   google_fonts: ^0.3.7
   font_awesome_flutter:
   flutter_rating_bar: ^1.1.0
+  chewie:
+  video_player: ^0.10.6
+  dotted_border: ^1.0.4
   
 
 dev_dependencies:
