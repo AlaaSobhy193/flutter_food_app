@@ -4,7 +4,6 @@ import 'package:flutter_food_app/screens/addRecipeze.dart';
 import 'package:flutter_food_app/screens/changePassword.dart';
 import 'package:flutter_food_app/screens/login.dart';
 import 'package:flutter_food_app/screens/myRecipeze.dart';
-import 'package:flutter_food_app/screens/restaurants.dart';
 import 'package:flutter_food_app/screens/signup.dart';
 import 'package:flutter_food_app/widgets/homeRecipesList.dart';
 
@@ -131,7 +130,37 @@ class _MyHomePageState extends State<MyHomePage> {
                                 itemCount: 6,
                                 itemBuilder: (context, index) {
                                   //  final Product products = product[index];
-                                  return buildContainer(context);
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                      top: 20.0,
+                                      bottom: 20.0,
+                                      left: 20.0,
+                                    ),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Image.asset(
+                                          'assets/chicken.png',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                        ),
+                                        Text(
+                                          'chicken',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 10.0,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'NotoSansSC',
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  );
                                 }),
                           ),
                         ],
@@ -391,40 +420,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ]))
         ]));
-  }
-
-  buildContainer(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RestaurantsPage()));
-      },
-      child: Container(
-        padding: EdgeInsets.only(
-          top: 20.0,
-          bottom: 20.0,
-          left: 20.0,
-        ),
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              'assets/chicken.png',
-              width: MediaQuery.of(context).size.width * 0.15,
-              height: MediaQuery.of(context).size.width * 0.15,
-            ),
-            Text(
-              'chicken',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 10.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'NotoSansSC',
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   Drawer buildDrawer() {
