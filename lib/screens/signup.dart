@@ -15,42 +15,20 @@ class _MySignUpPageState extends State<MySignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              overflow: Overflow.visible,
-              children: <Widget>[
-                BackdropFilter(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/background.jpg')),
-                    ),
-                    child: ClipRRect(
-                      child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 0,
-                            sigmaY: 0,
-                          ),
-                          child: Container(
-                            decoration:
-                                const BoxDecoration(color: Colors.black45),
-                          )),
-                    ),
-                  ),
-                  filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                ),
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.05,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+      body: Column(
+        children: <Widget>[
+          Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              buildBackdropFilter(context),
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.05,
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
@@ -279,12 +257,36 @@ class _MySignUpPageState extends State<MySignUpPage> {
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
-          ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  BackdropFilter buildBackdropFilter(BuildContext context) {
+    return BackdropFilter(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage('assets/background.jpg')),
+        ),
+        child: ClipRRect(
+          child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 0,
+                sigmaY: 0,
+              ),
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.black45),
+              )),
         ),
       ),
+      filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
     );
   }
 }

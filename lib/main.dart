@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_food_app/screens/splash.dart';
+import 'package:flutter_food_app/screens/splachScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        pageTransitionsTheme: PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        }),
       ),
       home: MySplashPage(),
     );
